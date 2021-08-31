@@ -342,3 +342,20 @@ detect_boot_device()
 	umount /boot 2>/dev/null
 	return 1
 }
+
+# generic wrapper to extend a PCR using TPM1.2 or TPM2 commands as necessary
+# @param: code to be extended
+# @param (optional): PCR index to extend, default 4
+tpm_extend()
+{
+	local ARGUMENT=$1
+	local PCR=${2:-4}
+	echo $PCR
+
+	if [ "$CONFIG_TPM" = "y" ]; then
+		tpm extend -ix $PCR -ic $ARGUMENT 
+	elif ["$CONFIG_TPM2" = "y" ]; then 
+		tpm2 pcrevent $PCR $ARGUMENT $1>/dev/null 
+	fi
+}
+
