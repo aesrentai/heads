@@ -13,7 +13,7 @@ mkdir -p /tmp/secret
 # ensure /tmp/config exists for recovery scripts that depend on it
 touch /tmp/config
 
-tpm_pcrextend recovery
+tpm_extend recovery
 
 while [ true ]
 do
