@@ -4,6 +4,7 @@ echo "hello world" > /dev/ttyprintk
 
 # Setup our path
 export PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/bin
+export HOME=/root
 
 # This is the very first script invoked by the Linux kernel and is
 # running out of the ram disk.  There are no fileysstems mounted.
