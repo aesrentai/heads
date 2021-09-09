@@ -53,6 +53,12 @@ if [ "$CONFIG_LINUXBOOT" = "y" ]; then
 	/bin/uefi-init
 fi
 
+# Setup a TPM2 session if appropriate
+if [ "$CONFIG_TPM2" = "y" ]; then
+	#TODO: verify that the key is actually from the TPM
+	tpm2 startauthsession -S $HOME/primary.ctx 
+fi
+
 # Set GPG_TTY before calling gpg in key-init
 export GPG_TTY=/dev/console
 
