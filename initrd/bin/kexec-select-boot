@@ -341,7 +341,7 @@ while true; do
 	if [ "$CONFIG_TPM" = "y" \
 		-a ! -r "$TMP_KEY_DEVICES" ]; then
 		# Extend PCR4 as soon as possible
-		tpm extend -ix 4 -ic generic \
+		tpm extend generic 
 		|| die "Failed to extend PCR 4"
 	fi
 
