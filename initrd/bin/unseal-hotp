@@ -21,13 +21,6 @@ mount_boot_or_die()
 # get current value of HOTP counter in TPM, create if absent
 mount_boot_or_die
 
-#check_tpm_counter $HOTP_COUNTER hotp \
-#|| die "Unable to find/create TPM counter"
-#counter="$TPM_COUNTER"
-#
-#counter_value=$(read_tpm_counter $counter | cut -f2 -d ' ' | awk 'gsub("^000e","")')
-#
-
 counter_value=$(cat $HOTP_COUNTER)
 
 if [ "$counter_value" == "" ]; then
@@ -56,9 +49,6 @@ if ! hotp $counter_value < "$HOTP_SECRET"; then
 fi
 
 shred -n 10 -z -u "$HOTP_SECRET" 2> /dev/null
-
-#increment_tpm_counter $counter > /dev/null \
-#|| die "Unable to increment tpm counter"
 
 mount -o remount,rw /boot
 

@@ -43,15 +43,6 @@ shred -n 10 -z -u "$HOTP_SEALED" 2> /dev/null
 # get current value of HOTP counter in TPM, create if absent
 mount_boot
 
-#check_tpm_counter $HOTP_COUNTER hotp \
-#|| die "Unable to find/create TPM counter"
-#counter="$TPM_COUNTER"
-#
-#counter_value=$(read_tpm_counter $counter | cut -f2 -d ' ' | awk 'gsub("^000e","")')
-#if [ "$counter_value" == "" ]; then
-#  die "Unable to read HOTP counter"
-#fi
-
 #counter_value=$(printf "%d" 0x${counter_value})
 
 counter_value=1
@@ -94,12 +85,6 @@ fi
 
 # HOTP key no longer needed
 shred -n 10 -z -u "$HOTP_SECRET" 2> /dev/null
-
-# Make sure our counter is incremented ahead of the next check
-#increment_tpm_counter $counter > /dev/null \
-#|| die "Unable to increment tpm counter"
-#increment_tpm_counter $counter > /dev/null \
-#|| die "Unable to increment tpm counter"
 
 mount -o remount,rw /boot
 
