@@ -19,6 +19,17 @@ else ifeq "$(CONFIG_COREBOOT_VERSION)" "4.13"
 	coreboot_hash := 4779da645a25ddebc78f1bd2bd0b740fb1e6479572648d4650042a2b9502856a
 	coreboot-blobs_hash := 060656b46a7859d038ddeec3f7e086e85f146a50b280c4babec23c1188264dc8
 	coreboot_depends := $(if $(CONFIG_PURISM_BLOBS), purism-blobs)
+else ifeq "$(CONFIG_COREBOOT_VERSION)" "4.14_System76"
+        #https://github.com/system76/coreboot/archive/970cc131920805ce52b2cffe3f9293745c82968b.zip
+        coreboot_version := 970cc131920805ce52b2cffe3f9293745c82968b
+        coreboot_hash := 99480b5df9093b03cf687c604cd907058265492af6e274cba1977f1a9e91aba9
+        coreboot-blobs_hash := 9ee2fe5ba37d0e214000b8655acf8922de6df792adb75790559db4c160847921
+        coreboot_base_dir ?= coreboot-$(coreboot_version)
+        coreboot_tar ?= $(coreboot_version).tar.gz
+        coreboot_url ?= https://github.com/system76/coreboot/archive/$(coreboot_tar)
+        coreboot-blobs_version ?= 4.14
+        coreboot-blobs_tar ?= coreboot-blobs-$(coreboot-blobs_version).tar.xz
+        coreboot-blobs_url ?= https://www.coreboot.org/releases/$(coreboot-blobs_tar)
 else
 	$(error "$(BOARD): does not specify coreboot version under CONFIG_COREBOOT_VERSION")
 endif 
